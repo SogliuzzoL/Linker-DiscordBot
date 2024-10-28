@@ -20,14 +20,16 @@ Pour installer les dépendances, exécutez les commandes suivantes :
 ```bash
 npm install discord.js
 npm install mongoose
+npm install express
 npm install pm2 -g
 ```
 
 ## Configuration
 
-1. Ouvrez le fichier `config.js`.
+1. Renommer le fichier `config_example.js` en `config.js`.
 2. Modifiez les informations de connexion pour MongoDB.
-3. Remplacez le token de votre bot Discord par le vôtre, disponible dans le [portail de développeur Discord](https://discord.com/developers/applications).
+3. Changez le port si nécessaire.
+4. Remplacez le token de votre bot Discord par le votre, disponible dans le [portail de développeur Discord](https://discord.com/developers/applications).
 
 ## Lancement du programme
 
