@@ -19,6 +19,7 @@ Pour installer les dépendances, exécutez les commandes suivantes :
 
 ```bash
 npm install discord.js
+npm install mongoose
 npm install pm2 -g
 ```
 
