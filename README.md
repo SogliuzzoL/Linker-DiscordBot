@@ -26,7 +26,7 @@ npm install pm2 -g
 
 ## Configuration
 
-1. Renommer le fichier `config_example.js` en `config.js`.
+1. Renommer le fichier, se trouvant dans `config`, `config_example.js` en `config.js`.
 2. Modifiez les informations de connexion pour MongoDB.
 3. Changez le port si nécessaire.
 4. Remplacez le token de votre bot Discord par le votre, disponible dans le [portail de développeur Discord](https://discord.com/developers/applications).
@@ -48,5 +48,3 @@ npm install pm2 -g
    ```bash
    pm2 start app.js
    ```
-
----
