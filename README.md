@@ -48,3 +48,13 @@ npm install pm2 -g
    ```bash
    pm2 start app.js
    ```
+
+## Comment ça marche ?
+
+1. L'utilisateur voulant se faire vérifier effectue la commande /link sur un Discord où est présent le bot Discord.
+
+2. Pour récupérer la date de l'émission du code et l'ID Discord de l'utilisateur, il faut faire une requête GET sous le format suivant :
+
+   ```
+   http://ip:port/?code=<le code à vérifier>
+   ```

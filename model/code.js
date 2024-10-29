@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const CodeSchema = new mongoose.Schema(
     {
         discord_id: Number,
-        data: Number,
+        date: Number,
         code_validation: Number
     })
 

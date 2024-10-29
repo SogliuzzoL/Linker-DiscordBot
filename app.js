@@ -7,10 +7,9 @@ const code = require('./model/code')
 // Connection à la base de données
 mongoose.connect(config.database).catch(err => 
     {
-        config.log('Erreur avec la base de données')
+        console.log('Erreur avec la base de données')
         console.log(err)
     })
-console.log('Base de données OK !')
 
 // Bot Discord
 const client = new discord.Client({ intents: [discord.GatewayIntentBits.Guilds, discord.GatewayIntentBits.GuildIntegrations] });
@@ -38,14 +37,29 @@ client.on('interactionCreate', async interaction =>
 
         if (interaction.commandName === 'link') 
         {
-            var code_validation = Math.floor(Math.random() * 10 ** 8)
-            code.find({code_validation: code_validation}).exec().catch(console.error).then(elements => 
-                {
-                    for (let element of elements)
+            var code_validation = 0
+            var code_unique = false
+            while(!code_unique)
+            {
+                code_validation = Math.floor(Math.random() * 10 ** 8)
+                code_unique = true
+
+                code.find({code_validation: code_validation}).exec().catch(console.error).then(elements => 
                     {
-                        console.log(element)
-                    }
-                })
+                        for (let element of elements)
+                        {
+                            code_unique = false
+                            break
+                        }
+                    })
+            }
+
+            var date = Date.now()
+
+            console.log('Nouveau code de validation pour %s : %d', interaction.user.globalName, code_validation)
+            
+            const nouveau_code = new code({ discord_id: interaction.user, date: date, code_validation: code_validation })
+            await nouveau_code.save()
 
             await interaction.reply({ content: 'Votre code de liaison est : ' + code_validation, ephemeral: true })
         }
@@ -62,5 +76,11 @@ app.listen(config.port, () =>
 
 app.get('/', (request, responce) => 
     {
-        responce.send('Test OK !')
+        console.log("Request : %s", request.query)
+        code_validation = parseInt(request.query.code)
+        code.findOne({ code_validation: code_validation }).catch(console.error).then((docs) => 
+            {
+                responce.send(docs)
+                console.log(docs)
+            })
     })
