@@ -37,6 +37,7 @@ client.on('interactionCreate', async interaction =>
 
         if (interaction.commandName === 'link') 
         {
+            var date = Date.now()
             var code_validation = 0
             var code_unique = false
             while(!code_unique)
@@ -49,12 +50,15 @@ client.on('interactionCreate', async interaction =>
                         for (let element of elements)
                         {
                             code_unique = false
-                            break
+                            if (date - element.date >= 1000 * 60 * 30) // 30 Minutes
+                            {
+                                code.deleteOne(element).exec()
+                                console.log("%s supprimé de la base de donnée.", element)
+                            }
                         }
                     })
             }
 
-            var date = Date.now()
 
             console.log('Nouveau code de validation pour %s : %d', interaction.user.globalName, code_validation)
             
